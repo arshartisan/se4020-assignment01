@@ -14,7 +14,7 @@ struct AppLogoLabelView: View {
             Text("NurseryConnect")
                 .font(.title2)
                 .fontWeight(.semibold)
-                .tracking(-1)
+                .tracking(-1.5)
         }
     }
 }
