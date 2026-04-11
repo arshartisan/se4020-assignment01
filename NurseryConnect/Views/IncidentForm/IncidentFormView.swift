@@ -57,15 +57,9 @@ struct IncidentFormView: View {
         Section("Severity") {
             Picker("Severity", selection: $viewModel.severity) {
                 ForEach(IncidentSeverity.allCases) { level in
-                    HStack {
-                        Circle()
-                            .fill(level.indicatorColor)
-                            .frame(width: 10, height: 10)
-                            .accessibilityHidden(true)
-                        Text(level.displayName)
-                    }
-                    .tag(level)
-                    .accessibilityLabel("\(level.displayName) severity")
+                    Text(level.displayName)
+                        .tag(level)
+                        .accessibilityLabel("\(level.displayName) severity")
                 }
             }
             .pickerStyle(.segmented)
