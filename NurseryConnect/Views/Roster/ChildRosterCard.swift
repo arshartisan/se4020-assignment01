@@ -37,20 +37,22 @@ struct ChildRosterCard: View {
 
             // Name
             Text(child.firstName)
-                .font(.appHeadline)
+                .font(.title2)
+                .fontWeight(.semibold)
+                .tracking(-1)
                 .foregroundColor(.black.opacity(0.8))
                 .lineLimit(1)
 
             // Detail row
             HStack(spacing: AppSpacing.xs) {
                 Text(formattedAge)
-                    .font(.caption2)
+                    .font(.caption)
                     .fontWeight(.medium)
                     .foregroundColor(.black.opacity(0.5))
                 Text("·")
                     .foregroundColor(.black.opacity(0.3))
                 Text(child.roomName)
-                    .font(.caption2)
+                    .font(.caption)
                     .foregroundColor(.black.opacity(0.5))
                     .lineLimit(1)
             }
@@ -76,7 +78,7 @@ struct ChildRosterCard: View {
                 .fill(.white.opacity(0.7))
                 .frame(width: 38, height: 38)
             Text(String(child.firstName.prefix(1)))
-                .font(.system(size: 16, weight: .bold, design: .default))
+                .font(.system(size: 20, weight: .bold, design: .default))
                 .foregroundColor(.black.opacity(0.6))
         }
     }
@@ -86,7 +88,7 @@ struct ChildRosterCard: View {
             if !child.allergies.isEmpty {
                 allergyBadge
             }
-            consentIndicator
+//            consentIndicator
         }
     }
 
@@ -97,7 +99,7 @@ struct ChildRosterCard: View {
             Text("Allergy")
                 .fontWeight(.semibold)
         }
-        .font(.caption2)
+        .font(.caption)
         .foregroundColor(.white)
         .padding(.horizontal, 6)
         .padding(.vertical, 3)
