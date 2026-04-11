@@ -73,12 +73,14 @@ struct IncidentHistoryView: View {
             RoundedRectangle(cornerRadius: 2)
                 .fill(incident.severity.indicatorColor)
                 .frame(width: 4, height: 40)
+                .accessibilityHidden(true)
 
             // Category icon
             Image(systemName: incident.category.sfSymbol)
                 .font(.title3)
                 .foregroundColor(.appDanger)
                 .frame(width: 30)
+                .accessibilityLabel(incident.category.displayName)
 
             // Content
             VStack(alignment: .leading, spacing: 2) {
@@ -106,7 +108,8 @@ struct IncidentHistoryView: View {
 
     private func dispatchBadge(for status: String) -> some View {
         Text(status.capitalized)
-            .font(.system(size: 10, weight: .semibold))
+            .font(.caption2)
+            .fontWeight(.semibold)
             .padding(.horizontal, 6)
             .padding(.vertical, 2)
             .foregroundColor(status == "dispatched" ? .appSuccess : .appWarning)

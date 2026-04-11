@@ -49,6 +49,7 @@ struct IncidentDetailView: View {
                     Circle()
                         .fill(incident.severity.indicatorColor)
                         .frame(width: 10, height: 10)
+                        .accessibilityHidden(true)
                     Text(incident.severity.displayName)
                 }
             }
