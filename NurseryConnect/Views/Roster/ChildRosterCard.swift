@@ -11,36 +11,54 @@ struct ChildRosterCard: View {
 
     @State private var isPressed = false
 
+    /// Stable pastel backgrounds derived from the child's name.
+    private var cardColor: Color {
+        let colors: [Color] = [
+            Color(red: 0.69, green: 0.87, blue: 0.90),  // soft blue
+            Color(red: 0.98, green: 0.85, blue: 0.65),  // soft yellow
+            Color(red: 0.80, green: 0.90, blue: 0.75),  // soft green
+            Color(red: 0.90, green: 0.80, blue: 0.93),  // soft purple
+            Color(red: 0.95, green: 0.78, blue: 0.78),  // soft pink
+        ]
+        let index = abs(child.firstName.hashValue) % colors.count
+        return colors[index]
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: AppSpacing.sm) {
+            // Top row: initials avatar + badges
+            HStack {
+                initialsAvatar
+                Spacer()
+                badgesRow
+            }
+
+            Spacer()
+
             // Name
             Text(child.firstName)
                 .font(.appHeadline)
-                .foregroundColor(.appTextPrimary)
+                .foregroundColor(.black.opacity(0.8))
                 .lineLimit(1)
 
-            // Age
-            Text(formattedAge)
-                .font(.appCaption)
-                .foregroundColor(.appTextSecondary)
-
-            // Room
-            Text(child.roomName)
-                .font(.appCaption)
-                .foregroundColor(.appTextSecondary)
-                .lineLimit(1)
-
-            // Badges row
+            // Detail row
             HStack(spacing: AppSpacing.xs) {
-                if !child.allergies.isEmpty {
-                    allergyBadge
-                }
-                consentIndicator
-                Spacer()
+                Text(formattedAge)
+                    .font(.caption2)
+                    .fontWeight(.medium)
+                    .foregroundColor(.black.opacity(0.5))
+                Text("·")
+                    .foregroundColor(.black.opacity(0.3))
+                Text(child.roomName)
+                    .font(.caption2)
+                    .foregroundColor(.black.opacity(0.5))
+                    .lineLimit(1)
             }
         }
-        .frame(minHeight: AppSpacing.minTapTarget)
-        .cardStyle()
+        .padding(AppSpacing.md)
+        .frame(minHeight: 140)
+        .background(cardColor.opacity(0.45))
+        .clipShape(RoundedRectangle(cornerRadius: AppSpacing.cardCornerRadius))
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(child.firstName), \(formattedAge), \(child.roomName)\(child.allergies.isEmpty ? "" : ", has allergies")")
         .scaleEffect(isPressed ? 0.96 : 1.0)
@@ -51,6 +69,26 @@ struct ChildRosterCard: View {
     }
 
     // MARK: - Subviews
+
+    private var initialsAvatar: some View {
+        ZStack {
+            Circle()
+                .fill(.white.opacity(0.7))
+                .frame(width: 38, height: 38)
+            Text(String(child.firstName.prefix(1)))
+                .font(.system(size: 16, weight: .bold, design: .rounded))
+                .foregroundColor(.black.opacity(0.6))
+        }
+    }
+
+    private var badgesRow: some View {
+        HStack(spacing: AppSpacing.xs) {
+            if !child.allergies.isEmpty {
+                allergyBadge
+            }
+            consentIndicator
+        }
+    }
 
     private var allergyBadge: some View {
         HStack(spacing: 2) {
@@ -70,8 +108,11 @@ struct ChildRosterCard: View {
 
     private var consentIndicator: some View {
         Image(systemName: child.photographyConsent ? AppIcons.camera : "camera.fill")
-            .font(.caption)
-            .foregroundColor(child.photographyConsent ? .appSuccess : .appTextSecondary.opacity(0.4))
+            .font(.caption2)
+            .padding(5)
+            .foregroundColor(child.photographyConsent ? .black.opacity(0.6) : .black.opacity(0.2))
+            .background(.white.opacity(0.5))
+            .clipShape(Circle())
             .accessibilityLabel(child.photographyConsent ? "Photography consent given" : "No photography consent")
     }
 
