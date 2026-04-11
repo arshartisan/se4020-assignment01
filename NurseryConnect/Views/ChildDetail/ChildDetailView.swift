@@ -17,6 +17,8 @@ struct ChildDetailView: View {
                     childHeaderCard
                     QuickActionsBar { type in
                         viewModel.presentDiaryForm(type: type)
+                    } onReportIncident: {
+                        viewModel.presentIncidentForm()
                     }
                     diaryTimelineContent
                 }
@@ -28,16 +30,43 @@ struct ChildDetailView: View {
         .background(Color.appBackground)
         .navigationTitle(viewModel.child.firstName)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                NavigationLink(value: "incidentHistory") {
+                    Label("Incident History", systemImage: AppIcons.incident)
+                        .foregroundColor(.appDanger)
+                }
+            }
+        }
         .errorAlert($viewModel.errorMessage)
+        .fullScreenCover(isPresented: $viewModel.showIncidentForm) {
+            viewModel.onIncidentFormDismissed()
+        } content: {
+            IncidentFormView(
+                viewModel: IncidentFormViewModel(
+                    child: viewModel.child,
+                    incidentService: IncidentService(
+                        context: modelContext,
+                        dispatchService: MockDispatchService()
+                    )
+                ),
+                onSubmitted: {
+                    viewModel.onIncidentSubmitted()
+                }
+            )
+        }
         .sheet(isPresented: $viewModel.showDiaryForm) {
-            Task { await viewModel.onEntrySaved() }
+            Task { await viewModel.onDiaryFormDismissed() }
         } content: {
             DiaryEntryFormView(
                 viewModel: DiaryEntryFormViewModel(
                     child: viewModel.child,
                     diaryService: DiaryService(context: modelContext),
                     selectedType: viewModel.selectedDiaryType
-                )
+                ),
+                onSaved: {
+                    viewModel.onDiaryEntrySaved()
+                }
             )
         }
         .task {

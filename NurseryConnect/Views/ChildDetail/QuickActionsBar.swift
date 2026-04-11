@@ -7,6 +7,7 @@ import SwiftUI
 
 struct QuickActionsBar: View {
     let onSelectType: (DiaryEntryType) -> Void
+    var onReportIncident: () -> Void = {}
 
     var body: some View {
         VStack(spacing: AppSpacing.sm) {
@@ -45,7 +46,7 @@ struct QuickActionsBar: View {
     private var reportIncidentButton: some View {
         Button {
             Haptics.medium()
-            // Wired in Phase 5
+            onReportIncident()
         } label: {
             VStack(spacing: AppSpacing.xs) {
                 Image(systemName: AppIcons.incident)
