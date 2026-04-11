@@ -29,7 +29,8 @@ struct IncidentCategoryPicker: View {
                 Image(systemName: category.sfSymbol)
                     .font(.title2)
                 Text(category.displayName)
-                    .font(.system(size: 11, weight: .medium))
+                    .font(.caption2)
+                    .fontWeight(.medium)
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
             }
@@ -44,6 +45,7 @@ struct IncidentCategoryPicker: View {
             )
         }
         .buttonStyle(.plain)
+        .accessibilityLabel("\(category.displayName)\(isSelected ? ", selected" : "")")
     }
 }
 

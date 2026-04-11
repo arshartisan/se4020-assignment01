@@ -61,9 +61,11 @@ struct IncidentFormView: View {
                         Circle()
                             .fill(level.indicatorColor)
                             .frame(width: 10, height: 10)
+                            .accessibilityHidden(true)
                         Text(level.displayName)
                     }
                     .tag(level)
+                    .accessibilityLabel("\(level.displayName) severity")
                 }
             }
             .pickerStyle(.segmented)
@@ -89,6 +91,7 @@ struct IncidentFormView: View {
         Section("What Happened") {
             TextEditor(text: $viewModel.descriptionText)
                 .frame(minHeight: 100)
+                .accessibilityLabel("What happened")
                 .accessibilityIdentifier("incidentForm.description")
         }
     }
@@ -107,6 +110,7 @@ struct IncidentFormView: View {
         Section("Action Taken") {
             TextEditor(text: $viewModel.immediateActionTaken)
                 .frame(minHeight: 80)
+                .accessibilityLabel("Action taken")
                 .accessibilityIdentifier("incidentForm.actionTaken")
         }
     }

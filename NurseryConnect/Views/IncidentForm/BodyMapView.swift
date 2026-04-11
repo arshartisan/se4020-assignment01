@@ -23,6 +23,7 @@ struct BodyMapView: View {
             Image(systemName: AppIcons.bodyMap)
                 .font(.system(size: 120))
                 .foregroundColor(.appTextSecondary.opacity(0.2))
+                .accessibilityHidden(true)
 
             // Tap regions arranged around the figure
             VStack(spacing: 2) {
@@ -72,10 +73,11 @@ struct BodyMapView: View {
             toggleLocation(location)
         } label: {
             Text(location.displayName)
-                .font(.system(size: 9, weight: .semibold))
+                .font(.caption2)
+                .fontWeight(.semibold)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 6)
-                .frame(minWidth: AppSpacing.minTapTarget, minHeight: 32)
+                .frame(minWidth: AppSpacing.minTapTarget, minHeight: AppSpacing.minTapTarget)
                 .foregroundColor(isSelected ? .white : .appTextSecondary)
                 .background(isSelected ? Color.appDanger : Color.appSurface)
                 .clipShape(Capsule())
@@ -85,6 +87,8 @@ struct BodyMapView: View {
                 )
         }
         .buttonStyle(.plain)
+        .accessibilityLabel("\(location.displayName)\(isSelected ? ", selected" : "")")
+        .accessibilityHint("Double tap to \(isSelected ? "deselect" : "select") injury location")
     }
 
     // MARK: - Selected Locations List

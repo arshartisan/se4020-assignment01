@@ -20,6 +20,7 @@ struct IncidentSubmittedView: View {
                     .font(.system(size: 60))
                     .foregroundColor(.appSuccess)
                     .symbolEffect(.bounce, value: showContent)
+                    .accessibilityHidden(true)
 
                 Text("Incident Report Submitted")
                     .font(.appTitle)
