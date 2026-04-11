@@ -19,6 +19,9 @@ final class ChildDetailViewModel {
     // MARK: - Sheet state
     var showDiaryForm: Bool = false
     var selectedDiaryType: DiaryEntryType = .activity
+    var showIncidentForm: Bool = false
+    var incidentWasSubmitted: Bool = false
+    var diaryEntryWasSaved: Bool = false
 
     // MARK: - Dependencies
     let child: Child
@@ -45,9 +48,33 @@ final class ChildDetailViewModel {
         showDiaryForm = true
     }
 
-    func onEntrySaved() async {
-        await loadEntries()
-        toastMessage = "Entry saved successfully"
-        showToast = true
+    func presentIncidentForm() {
+        showIncidentForm = true
+    }
+
+    func onIncidentSubmitted() {
+        incidentWasSubmitted = true
+        showIncidentForm = false
+    }
+
+    func onIncidentFormDismissed() {
+        if incidentWasSubmitted {
+            toastMessage = "Incident report submitted"
+            showToast = true
+            incidentWasSubmitted = false
+        }
+    }
+
+    func onDiaryEntrySaved() {
+        diaryEntryWasSaved = true
+    }
+
+    func onDiaryFormDismissed() async {
+        if diaryEntryWasSaved {
+            await loadEntries()
+            toastMessage = "Entry saved successfully"
+            showToast = true
+            diaryEntryWasSaved = false
+        }
     }
 }
