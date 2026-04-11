@@ -18,7 +18,7 @@ struct NurseryConnectApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView() // Temporary — will become RootView in Phase 3
+            RootView()
                 .task {
                     let context = sharedModelContainer.mainContext
                     let seedService = SeedDataService(context: context)
