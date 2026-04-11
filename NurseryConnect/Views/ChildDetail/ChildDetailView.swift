@@ -86,7 +86,7 @@ struct ChildDetailView: View {
                     .fill(avatarColor.opacity(0.3))
                     .frame(width: 56, height: 56)
                 Text(String(viewModel.child.firstName.prefix(1)))
-                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                    .font(.system(size: 24, weight: .bold, design: .default))
                     .foregroundColor(avatarColor)
             }
 
