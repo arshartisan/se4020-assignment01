@@ -11,15 +11,16 @@ struct EmptyStateView: View {
     let subtitle: String
 
     var body: some View {
-        VStack(spacing: AppSpacing.md) {
+        VStack(spacing: AppSpacing.sm) {
             Image(systemName: icon)
-                .font(.system(size: 48))
+                .font(.system(size: 36))
                 .foregroundColor(.appTextSecondary.opacity(0.6))
                 .accessibilityHidden(true)
 
             Text(title)
                 .font(.appTitle)
                 .foregroundColor(.appTextPrimary)
+                .tracking(-1.5)
 
             Text(subtitle)
                 .font(.appBody)
@@ -34,7 +35,7 @@ struct EmptyStateView: View {
 #Preview {
     EmptyStateView(
         icon: AppIcons.empty,
-        title: "No Entries Yet",
+        title: "No entries yet",
         subtitle: "Tap the + button to add a new diary entry."
     )
 }
