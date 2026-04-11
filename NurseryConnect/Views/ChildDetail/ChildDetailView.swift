@@ -12,7 +12,7 @@ struct ChildDetailView: View {
 
     var body: some View {
         ZStack {
-            Color.appBackground.ignoresSafeArea()
+            Color.white.ignoresSafeArea()
 
             ScrollView {
                 VStack(spacing: AppSpacing.md) {
@@ -172,7 +172,8 @@ struct ChildDetailView: View {
     private var quickActionsSection: some View {
         VStack(alignment: .leading, spacing: AppSpacing.sm) {
             Text("Quick Actions")
-                .font(.appHeadline)
+                .font(.title3)
+                .fontWeight(.semibold)
                 .foregroundColor(.appTextPrimary)
                 .padding(.horizontal, AppSpacing.xs)
 
