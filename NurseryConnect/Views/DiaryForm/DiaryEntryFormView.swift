@@ -8,6 +8,7 @@ import SwiftUI
 struct DiaryEntryFormView: View {
     @Environment(\.dismiss) private var dismiss
     @Bindable var viewModel: DiaryEntryFormViewModel
+    var onSaved: (() -> Void)?
 
     var body: some View {
         NavigationStack {
@@ -81,7 +82,10 @@ struct DiaryEntryFormView: View {
             }
             .errorAlert($viewModel.errorMessage)
             .onChange(of: viewModel.didSave) { _, saved in
-                if saved { dismiss() }
+                if saved {
+                    onSaved?()
+                    dismiss()
+                }
             }
         }
         .presentationDetents([.medium, .large])
