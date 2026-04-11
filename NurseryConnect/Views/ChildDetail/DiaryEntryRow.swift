@@ -8,35 +8,39 @@ import SwiftUI
 struct DiaryEntryRow: View {
     let entry: DiaryEntry
 
-    var body: some View {
-        HStack(alignment: .top, spacing: AppSpacing.md) {
-            // Timeline indicator
-            VStack(spacing: AppSpacing.xs) {
-                Image(systemName: entry.type.sfSymbol)
-                    .font(.body)
-                    .foregroundColor(.appPrimary)
-                    .frame(width: 32, height: 32)
-                    .background(Color.appPrimary.opacity(0.1))
-                    .clipShape(Circle())
-                    .accessibilityHidden(true)
+    /// Pastel accent per entry type.
+    private var accentColor: Color {
+        switch entry.type {
+        case .activity:  return Color(red: 0.95, green: 0.82, blue: 0.60)
+        case .meal:      return Color(red: 0.75, green: 0.88, blue: 0.72)
+        case .nap:       return Color(red: 0.76, green: 0.82, blue: 0.95)
+        case .nappy:     return Color(red: 0.90, green: 0.78, blue: 0.92)
+        case .wellbeing: return Color(red: 0.95, green: 0.80, blue: 0.78)
+        }
+    }
 
-                Rectangle()
-                    .fill(Color.appTextSecondary.opacity(0.2))
-                    .frame(width: 2)
+    var body: some View {
+        HStack(spacing: AppSpacing.md) {
+            // Icon
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(accentColor.opacity(0.5))
+                    .frame(width: 40, height: 40)
+                Image(systemName: entry.type.sfSymbol)
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundColor(.black.opacity(0.55))
                     .accessibilityHidden(true)
             }
-            .frame(width: 32)
-            .accessibilityHidden(true)
 
             // Content
-            VStack(alignment: .leading, spacing: AppSpacing.xs) {
+            VStack(alignment: .leading, spacing: 2) {
                 HStack {
                     Text(entry.type.displayName)
                         .font(.appHeadline)
                         .foregroundColor(.appTextPrimary)
                     Spacer()
                     Text(entry.timestamp.timeFormatted())
-                        .font(.appCaption)
+                        .font(.caption2)
                         .foregroundColor(.appTextSecondary)
                 }
 
@@ -44,16 +48,16 @@ struct DiaryEntryRow: View {
 
                 if !entry.notes.isEmpty {
                     Text(entry.notes)
-                        .font(.appBody)
+                        .font(.appCaption)
                         .foregroundColor(.appTextSecondary)
-                        .lineLimit(3)
+                        .lineLimit(2)
                 }
             }
-            .padding(AppSpacing.sm)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color.appSurface)
-            .clipShape(RoundedRectangle(cornerRadius: AppSpacing.cornerRadius / 2))
         }
+        .padding(AppSpacing.md)
+        .background(Color.appSurface)
+        .clipShape(RoundedRectangle(cornerRadius: AppSpacing.cornerRadius))
+        .shadow(color: .black.opacity(0.04), radius: 4, x: 0, y: 2)
     }
 
     @ViewBuilder
@@ -83,7 +87,7 @@ struct DiaryEntryRow: View {
             }
         case .nap:
             if let start = entry.napStartTime, let end = entry.napEndTime {
-                Text("\(start.timeFormatted()) – \(end.timeFormatted())")
+                Text("\(start.timeFormatted()) \u{2013} \(end.timeFormatted())")
                     .font(.appCaption)
                     .foregroundColor(.appTextSecondary)
             }
