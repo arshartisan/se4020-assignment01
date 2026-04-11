@@ -29,6 +29,8 @@ struct ChildRosterView: View {
             } else {
                 ScrollView {
                     VStack(spacing: AppSpacing.md) {
+                        AppLogoLabelView()
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         greetingHeader
                         statsRow
                         summaryBanner
@@ -42,12 +44,12 @@ struct ChildRosterView: View {
         }
         .background(Color.appBackground)
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text("Sunshine Room")
-                    .font(.appHeadline)
-            }
-        }
+//        .toolbar {
+//            ToolbarItem(placement: .principal) {
+//                Text("Sunshine Room")
+//                    .font(.appHeadline)
+//            }
+//        }
         .errorAlert($viewModel.errorMessage)
         .task {
             await viewModel.loadRoster()
@@ -64,15 +66,9 @@ struct ChildRosterView: View {
                 .textCase(.uppercase)
                 .tracking(1.2)
 
-            (Text("Hello Sarah,\nyou have ")
+            Text("Hello Sarah,\nyou have \(viewModel.children.count) children assigned today")
                 .font(.system(.largeTitle, design: .rounded, weight: .bold))
                 .foregroundColor(.appTextPrimary)
-            + Text("\(viewModel.children.count) children")
-                .font(.system(.largeTitle, design: .rounded, weight: .bold))
-                .foregroundColor(.appTextPrimary)
-            + Text(" assigned today")
-                .font(.system(.largeTitle, design: .rounded, weight: .bold))
-                .foregroundColor(.appTextSecondary))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(AppSpacing.lg)
