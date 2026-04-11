@@ -16,6 +16,14 @@ struct RootView: View {
                     rosterService: ChildRosterService(context: modelContext)
                 )
             )
+            .navigationDestination(for: Child.self) { child in
+                ChildDetailView(
+                    viewModel: ChildDetailViewModel(
+                        child: child,
+                        diaryService: DiaryService(context: modelContext)
+                    )
+                )
+            }
         }
     }
 }
