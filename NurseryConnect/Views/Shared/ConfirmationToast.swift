@@ -12,12 +12,15 @@ struct ConfirmationToast: View {
     var body: some View {
         if isShowing {
             VStack {
+                Spacer()
+
                 HStack(spacing: AppSpacing.sm) {
                     Image(systemName: AppIcons.success)
                         .foregroundColor(.appSuccess)
                         .accessibilityHidden(true)
                     Text(message)
                         .font(.appBody)
+                        .tracking(-0.5)
                         .foregroundColor(.appTextPrimary)
                 }
                 .padding(.horizontal, AppSpacing.lg)
@@ -25,12 +28,10 @@ struct ConfirmationToast: View {
                 .background(Color.appSurface)
                 .clipShape(RoundedRectangle(cornerRadius: AppSpacing.cornerRadius))
                 .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 4)
-                .transition(.move(edge: .top).combined(with: .opacity))
+                .transition(.move(edge: .bottom).combined(with: .opacity))
                 .accessibilityIdentifier("confirmationToast")
-
-                Spacer()
             }
-            .padding(.top, AppSpacing.md)
+            .padding(.bottom, AppSpacing.lg)
             .animation(.spring(), value: isShowing)
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
