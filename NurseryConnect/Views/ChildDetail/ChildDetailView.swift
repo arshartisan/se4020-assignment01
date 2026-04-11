@@ -92,12 +92,14 @@ struct ChildDetailView: View {
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(viewModel.child.fullName)
-                    .font(.appTitle)
+                    .font(.title2)
+                    .fontWeight(.medium)
+                    .tracking(-1)
                     .foregroundColor(.appTextPrimary)
 
                 let months = viewModel.child.ageInMonths
                 Text("\(months / 12)y \(months % 12)m \u{00B7} \(viewModel.child.roomName)")
-                    .font(.appCaption)
+                    .font(.caption)
                     .foregroundColor(.appTextSecondary)
             }
 
