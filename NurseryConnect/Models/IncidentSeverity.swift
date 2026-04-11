@@ -16,9 +16,9 @@ enum IncidentSeverity: String, CaseIterable, Identifiable {
 
     var indicatorColor: Color {
         switch self {
-        case .low: return .green
-        case .medium: return .orange
-        case .high: return .red
+        case .low: return .appSuccess
+        case .medium: return .appWarning
+        case .high: return .appDanger
         }
     }
 }
