@@ -33,7 +33,7 @@ struct ChildRosterView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                         greetingHeader
                         statsRow
-                        summaryBanner
+//                        summaryBanner
                         childrenSectionHeader
                         childrenGrid
                     }
@@ -42,7 +42,7 @@ struct ChildRosterView: View {
                 }
             }
         }
-        .background(Color.appBackground)
+        .background(Color.white)
         .navigationBarTitleDisplayMode(.inline)
 //        .toolbar {
 //            ToolbarItem(placement: .principal) {
@@ -66,16 +66,16 @@ struct ChildRosterView: View {
                 .textCase(.uppercase)
                 .tracking(1.2)
 
-            Text("Hello Sarah,\nyou have \(viewModel.children.count) children assigned today")
-                .font(.system(.largeTitle, design: .rounded, weight: .bold))
-                .foregroundColor(.appTextPrimary)
+            Text("Hello \(Text("Sarah").foregroundColor(.blue)),\nyou have \(Text("\(viewModel.children.count) children").foregroundColor(.blue)) assigned today")
+                .foregroundColor(.black)
+                .font(.system(size: 38, weight: .medium, design: .default).leading(.tight)).tracking(-2)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(AppSpacing.lg)
+//        .padding(AppSpacing.md)
         .padding(.top, AppSpacing.sm)
-        .background(Color.appSurface)
-        .clipShape(RoundedRectangle(cornerRadius: AppSpacing.cardCornerRadius))
-        .shadow(color: .black.opacity(0.05), radius: 8, x: 0, y: 2)
+//        .background(Color.appSurface)
+//        .clipShape(RoundedRectangle(cornerRadius: AppSpacing.cardCornerRadius))
+//        .shadow(color: .black.opacity(0.05), radius: 8, x: 0, y: 2)
     }
 
     // MARK: - Stats Row
@@ -85,35 +85,35 @@ struct ChildRosterView: View {
             statChip(
                 icon: "heart.fill",
                 label: "Wellbeing",
-                value: "\(viewModel.children.count) logged",
+                value: "\(viewModel.children.count) Logged",
                 color: .appSuccess
             )
             statChip(
                 icon: "exclamationmark.triangle.fill",
                 label: "Allergies",
-                value: "\(childrenWithAllergies) flagged",
+                value: "\(childrenWithAllergies) Flagged",
                 color: .appDanger
             )
-            statChip(
-                icon: "camera.fill",
-                label: "Photo",
-                value: "\(childrenWithConsent) consent",
-                color: .appPrimary
-            )
+//            statChip(
+//                icon: "camera.fill",
+//                label: "Photo",
+//                value: "\(childrenWithConsent) consent",
+//                color: .appPrimary
+//            )
         }
     }
 
     private func statChip(icon: String, label: String, value: String, color: Color) -> some View {
         VStack(spacing: AppSpacing.xs) {
             Image(systemName: icon)
-                .font(.system(size: 16, weight: .semibold))
+                .font(.system(size: 20, weight: .semibold))
                 .foregroundColor(color)
             Text(value)
-                .font(.caption2)
+                .font(.caption)
                 .fontWeight(.semibold)
                 .foregroundColor(.appTextPrimary)
             Text(label)
-                .font(.caption2)
+                .font(.caption)
                 .foregroundColor(.appTextSecondary)
         }
         .frame(maxWidth: .infinity)
@@ -121,25 +121,6 @@ struct ChildRosterView: View {
         .background(Color.appSurface)
         .clipShape(RoundedRectangle(cornerRadius: AppSpacing.cornerRadius))
         .shadow(color: .black.opacity(0.04), radius: 4, x: 0, y: 2)
-    }
-
-    // MARK: - Summary Banner
-
-    private var summaryBanner: some View {
-        HStack(spacing: AppSpacing.sm) {
-            Image(systemName: AppIcons.roster)
-                .font(.system(size: 14, weight: .semibold))
-            Text("Roster updated for ")
-                .font(.appCaption)
-            + Text(todayFormatted)
-                .font(.appCaption)
-                .bold()
-        }
-        .foregroundColor(.black.opacity(0.7))
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(AppSpacing.md)
-        .background(Color.appWarning.opacity(0.35))
-        .clipShape(RoundedRectangle(cornerRadius: AppSpacing.cornerRadius))
     }
 
     // MARK: - Children Section

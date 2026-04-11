@@ -76,7 +76,7 @@ struct ChildRosterCard: View {
                 .fill(.white.opacity(0.7))
                 .frame(width: 38, height: 38)
             Text(String(child.firstName.prefix(1)))
-                .font(.system(size: 16, weight: .bold, design: .rounded))
+                .font(.system(size: 16, weight: .bold, design: .default))
                 .foregroundColor(.black.opacity(0.6))
         }
     }
