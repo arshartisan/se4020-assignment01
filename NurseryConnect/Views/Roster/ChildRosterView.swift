@@ -128,11 +128,12 @@ struct ChildRosterView: View {
     private var childrenSectionHeader: some View {
         HStack {
             Text("Children")
-                .font(.appHeadline)
+                .font(.title3)
+                .fontWeight(.semibold)
                 .foregroundColor(.appTextPrimary)
             Spacer()
             Text("\(viewModel.children.count) total")
-                .font(.appCaption)
+                .font(.headline)
                 .foregroundColor(.appTextSecondary)
         }
         .padding(.top, AppSpacing.xs)
