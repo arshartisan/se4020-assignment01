@@ -69,6 +69,7 @@ struct DiaryEntryFormView: View {
                     }
                     .buttonStyle(.primary)
                     .disabled(!viewModel.isValid || viewModel.isSaving)
+                    .accessibilityIdentifier("diaryForm.saveButton")
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
                 }

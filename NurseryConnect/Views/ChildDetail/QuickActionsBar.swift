@@ -41,6 +41,7 @@ struct QuickActionsBar: View {
             .clipShape(RoundedRectangle(cornerRadius: AppSpacing.cornerRadius))
         }
         .buttonStyle(.plain)
+        .accessibilityIdentifier("quickAction.\(type.rawValue)")
     }
 
     private var reportIncidentButton: some View {
@@ -61,6 +62,7 @@ struct QuickActionsBar: View {
             .clipShape(RoundedRectangle(cornerRadius: AppSpacing.cornerRadius))
         }
         .buttonStyle(.plain)
+        .accessibilityIdentifier("quickAction.reportIncident")
     }
 }
 

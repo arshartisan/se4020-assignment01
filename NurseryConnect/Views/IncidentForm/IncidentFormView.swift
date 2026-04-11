@@ -38,6 +38,7 @@ struct IncidentFormView: View {
                     Button("Cancel") { dismiss() }
                 }
             }
+            .scrollDismissesKeyboard(.immediately)
             .interactiveDismissDisabled(viewModel.isSubmitting)
         }
     }
@@ -88,6 +89,7 @@ struct IncidentFormView: View {
         Section("What Happened") {
             TextEditor(text: $viewModel.descriptionText)
                 .frame(minHeight: 100)
+                .accessibilityIdentifier("incidentForm.description")
         }
     }
 
@@ -105,6 +107,7 @@ struct IncidentFormView: View {
         Section("Action Taken") {
             TextEditor(text: $viewModel.immediateActionTaken)
                 .frame(minHeight: 80)
+                .accessibilityIdentifier("incidentForm.actionTaken")
         }
     }
 
@@ -141,6 +144,7 @@ struct IncidentFormView: View {
             }
             .buttonStyle(.primary)
             .disabled(viewModel.isSubmitting)
+            .accessibilityIdentifier("incidentForm.submitButton")
             .listRowInsets(EdgeInsets())
             .listRowBackground(Color.clear)
         }

@@ -25,6 +25,7 @@ struct ConfirmationToast: View {
                 .clipShape(RoundedRectangle(cornerRadius: AppSpacing.cornerRadius))
                 .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 4)
                 .transition(.move(edge: .top).combined(with: .opacity))
+                .accessibilityIdentifier("confirmationToast")
 
                 Spacer()
             }

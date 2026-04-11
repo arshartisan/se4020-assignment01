@@ -29,14 +29,16 @@ struct ChildRosterView: View {
             } else {
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: AppSpacing.md) {
-                        ForEach(viewModel.children) { child in
+                        ForEach(Array(viewModel.children.enumerated()), id: \.element.id) { index, child in
                             NavigationLink(value: child) {
                                 ChildRosterCard(child: child)
                             }
                             .buttonStyle(.plain)
+                            .accessibilityIdentifier("childRoster.card.\(index)")
                         }
                     }
                     .padding(AppSpacing.md)
+                    .accessibilityIdentifier("childRoster.grid")
                 }
             }
         }

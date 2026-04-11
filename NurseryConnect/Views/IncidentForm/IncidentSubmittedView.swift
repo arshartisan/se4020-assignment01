@@ -38,6 +38,7 @@ struct IncidentSubmittedView: View {
             .padding(AppSpacing.xl)
             .scaleEffect(showContent ? 1.0 : 0.8)
             .opacity(showContent ? 1.0 : 0.0)
+            .accessibilityIdentifier("incidentSubmitted")
         }
         .onAppear {
             withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
