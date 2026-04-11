@@ -15,7 +15,7 @@ struct IncidentSubmittedView: View {
             Color.black.opacity(0.4)
                 .ignoresSafeArea()
 
-            VStack(spacing: AppSpacing.lg) {
+            VStack(spacing: AppSpacing.md) {
                 Image(systemName: AppIcons.checkmark)
                     .font(.system(size: 60))
                     .foregroundColor(.appSuccess)
@@ -24,19 +24,21 @@ struct IncidentSubmittedView: View {
 
                 Text("Incident Report Submitted")
                     .font(.appTitle)
+                    .tracking(-1)
                     .foregroundColor(.appTextPrimary)
                     .multilineTextAlignment(.center)
 
                 Text("The report has been dispatched to the setting manager.")
                     .font(.appBody)
+                    .tracking(-0.5)
                     .foregroundColor(.appTextSecondary)
                     .multilineTextAlignment(.center)
             }
             .padding(AppSpacing.xl)
-            .background(Color.appSurface)
+            .background(Color.white)
             .clipShape(RoundedRectangle(cornerRadius: AppSpacing.cardCornerRadius))
             .shadow(radius: 20)
-            .padding(AppSpacing.xl)
+            .padding(AppSpacing.md)
             .scaleEffect(showContent ? 1.0 : 0.8)
             .opacity(showContent ? 1.0 : 0.0)
             .accessibilityIdentifier("incidentSubmitted")
