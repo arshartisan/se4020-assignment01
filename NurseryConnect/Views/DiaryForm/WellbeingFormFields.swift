@@ -30,7 +30,7 @@ struct WellbeingFormFields: View {
                 Text(mood.emoji)
                     .font(.title)
                 Text(mood.displayName)
-                    .font(.system(size: 10))
+                    .font(.caption2)
                     .foregroundColor(.appTextSecondary)
             }
             .frame(maxWidth: .infinity, minHeight: AppSpacing.minTapTarget)
@@ -42,5 +42,6 @@ struct WellbeingFormFields: View {
             )
         }
         .buttonStyle(.plain)
+        .accessibilityLabel("\(mood.displayName)\(moodRating == mood ? ", selected" : "")")
     }
 }
