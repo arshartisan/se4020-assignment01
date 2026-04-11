@@ -15,6 +15,7 @@ struct ConfirmationToast: View {
                 HStack(spacing: AppSpacing.sm) {
                     Image(systemName: AppIcons.success)
                         .foregroundColor(.appSuccess)
+                        .accessibilityHidden(true)
                     Text(message)
                         .font(.appBody)
                         .foregroundColor(.appTextPrimary)
