@@ -24,6 +24,21 @@ struct RootView: View {
                     )
                 )
             }
+            .navigationDestination(for: String.self) { route in
+                if route == "incidentHistory" {
+                    IncidentHistoryView(
+                        viewModel: IncidentHistoryViewModel(
+                            incidentService: IncidentService(
+                                context: modelContext,
+                                dispatchService: MockDispatchService()
+                            )
+                        )
+                    )
+                }
+            }
+            .navigationDestination(for: IncidentReport.self) { incident in
+                IncidentDetailView(incident: incident)
+            }
         }
     }
 }
