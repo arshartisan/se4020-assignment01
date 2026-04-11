@@ -41,6 +41,8 @@ struct ChildRosterCard: View {
         }
         .frame(minHeight: AppSpacing.minTapTarget)
         .cardStyle()
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(child.firstName), \(formattedAge), \(child.roomName)\(child.allergies.isEmpty ? "" : ", has allergies")")
         .scaleEffect(isPressed ? 0.96 : 1.0)
         .animation(.easeInOut(duration: 0.15), value: isPressed)
         .onLongPressGesture(minimumDuration: .infinity, pressing: { pressing in
@@ -53,21 +55,24 @@ struct ChildRosterCard: View {
     private var allergyBadge: some View {
         HStack(spacing: 2) {
             Image(systemName: AppIcons.warning)
-                .font(.system(size: 10))
+                .accessibilityHidden(true)
             Text("Allergy")
-                .font(.system(size: 10, weight: .semibold))
+                .fontWeight(.semibold)
         }
+        .font(.caption2)
         .foregroundColor(.white)
         .padding(.horizontal, 6)
         .padding(.vertical, 3)
         .background(Color.appDanger)
         .clipShape(Capsule())
+        .accessibilityLabel("Has allergies")
     }
 
     private var consentIndicator: some View {
         Image(systemName: child.photographyConsent ? AppIcons.camera : "camera.fill")
-            .font(.system(size: 12))
+            .font(.caption)
             .foregroundColor(child.photographyConsent ? .appSuccess : .appTextSecondary.opacity(0.4))
+            .accessibilityLabel(child.photographyConsent ? "Photography consent given" : "No photography consent")
     }
 
     // MARK: - Helpers
