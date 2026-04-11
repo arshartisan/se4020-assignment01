@@ -19,3 +19,13 @@ struct RootView: View {
         }
     }
 }
+
+#Preview {
+    let container = try! ModelContainerProvider.makeInMemoryContainer()
+    let context = container.mainContext
+    let seedService = SeedDataService(context: context)
+    try! seedService.seedIfNeeded()
+
+    return RootView()
+        .modelContainer(container)
+}

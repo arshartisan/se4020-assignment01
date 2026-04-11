@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ChildRosterView: View {
     @Bindable var viewModel: ChildRosterViewModel
@@ -57,4 +58,20 @@ struct ChildRosterView: View {
             await viewModel.loadRoster()
         }
     }
+}
+
+#Preview {
+    let container = try! ModelContainerProvider.makeInMemoryContainer()
+    let context = container.mainContext
+    let seedService = SeedDataService(context: context)
+    try! seedService.seedIfNeeded()
+
+    return NavigationStack {
+        ChildRosterView(
+            viewModel: ChildRosterViewModel(
+                rosterService: ChildRosterService(context: context)
+            )
+        )
+    }
+    .modelContainer(container)
 }

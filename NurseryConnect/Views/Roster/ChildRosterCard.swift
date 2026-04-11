@@ -4,6 +4,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ChildRosterCard: View {
     let child: Child
@@ -77,4 +78,24 @@ struct ChildRosterCard: View {
         let remainingMonths = months % 12
         return "\(years)y \(remainingMonths)m"
     }
+}
+
+#Preview {
+    let container = try! ModelContainerProvider.makeInMemoryContainer()
+    let context = container.mainContext
+
+    let child = Child(
+        firstName: "Oliver",
+        lastName: "Bennett",
+        dateOfBirth: Calendar.current.date(byAdding: .year, value: -3, to: .now)!,
+        roomName: "Sunshine Room",
+        keyworkerName: "Sarah Mitchell",
+        allergies: ["Peanuts"],
+        photographyConsent: true
+    )
+    context.insert(child)
+
+    return ChildRosterCard(child: child)
+        .padding()
+        .modelContainer(container)
 }
