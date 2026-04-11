@@ -9,18 +9,27 @@ struct QuickActionsBar: View {
     let onSelectType: (DiaryEntryType) -> Void
     var onReportIncident: () -> Void = {}
 
+    @State private var appeared = false
+
     var body: some View {
         VStack(spacing: AppSpacing.sm) {
             Text("Quick Actions")
                 .sectionHeaderStyle()
 
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 90), spacing: AppSpacing.sm)], spacing: AppSpacing.sm) {
-                ForEach(DiaryEntryType.allCases) { type in
+                ForEach(Array(DiaryEntryType.allCases.enumerated()), id: \.element) { index, type in
                     quickActionButton(for: type)
+                        .opacity(appeared ? 1 : 0)
+                        .offset(y: appeared ? 0 : 10)
+                        .animation(.spring(response: 0.4, dampingFraction: 0.8).delay(Double(index) * 0.05), value: appeared)
                 }
                 reportIncidentButton
+                    .opacity(appeared ? 1 : 0)
+                    .offset(y: appeared ? 0 : 10)
+                    .animation(.spring(response: 0.4, dampingFraction: 0.8).delay(Double(DiaryEntryType.allCases.count) * 0.05), value: appeared)
             }
         }
+        .onAppear { appeared = true }
     }
 
     private func quickActionButton(for type: DiaryEntryType) -> some View {

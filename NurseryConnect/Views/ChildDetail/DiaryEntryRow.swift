@@ -18,12 +18,15 @@ struct DiaryEntryRow: View {
                     .frame(width: 32, height: 32)
                     .background(Color.appPrimary.opacity(0.1))
                     .clipShape(Circle())
+                    .accessibilityHidden(true)
 
                 Rectangle()
                     .fill(Color.appTextSecondary.opacity(0.2))
                     .frame(width: 2)
+                    .accessibilityHidden(true)
             }
             .frame(width: 32)
+            .accessibilityHidden(true)
 
             // Content
             VStack(alignment: .leading, spacing: AppSpacing.xs) {
