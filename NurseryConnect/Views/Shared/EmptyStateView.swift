@@ -18,7 +18,8 @@ struct EmptyStateView: View {
                 .accessibilityHidden(true)
 
             Text(title)
-                .font(.appTitle)
+                .font(.title)
+                .fontWeight(.semibold)
                 .foregroundColor(.appTextPrimary)
                 .tracking(-1.5)
 
