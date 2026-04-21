@@ -41,8 +41,12 @@ struct IncidentDetailView: View {
     private var categorySection: some View {
         Section("Classification") {
             LabeledContent("Category") {
-                Label(incident.category.displayName, systemImage: incident.category.sfSymbol)
-                    .foregroundColor(.appDanger)
+                HStack(spacing: AppSpacing.xs) {
+                    Image(systemName: incident.category.sfSymbol)
+                        .accessibilityHidden(true)
+                    Text(incident.category.displayName)
+                }
+                .foregroundColor(.appDanger)
             }
             LabeledContent("Severity") {
                 HStack(spacing: AppSpacing.xs) {
