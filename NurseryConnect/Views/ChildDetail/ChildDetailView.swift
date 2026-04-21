@@ -52,7 +52,7 @@ struct ChildDetailView: View {
             )
         }
         .sheet(isPresented: $viewModel.showDiaryForm) {
-            Task { await viewModel.onDiaryFormDismissed() }
+            viewModel.onDiaryFormDismissed()
         } content: {
             DiaryEntryFormView(
                 viewModel: DiaryEntryFormViewModel(
@@ -64,9 +64,6 @@ struct ChildDetailView: View {
                     viewModel.onDiaryEntrySaved()
                 }
             )
-        }
-        .task {
-            await viewModel.loadEntries()
         }
     }
 
@@ -181,21 +178,8 @@ struct ChildDetailView: View {
 
     // MARK: - Timeline Content
 
-    @ViewBuilder
     private var diaryTimelineContent: some View {
-        if viewModel.isLoading {
-            LoadingView(label: "Loading diary\u{2026}")
-                .frame(height: 200)
-        } else if viewModel.entries.isEmpty {
-            EmptyStateView(
-                icon: AppIcons.note,
-                title: "No Entries Today",
-                subtitle: "Tap a quick action above to log the first entry."
-            )
-            .frame(height: 200)
-        } else {
-            DiaryTimelineSection(entries: viewModel.entries)
-        }
+        ChildDiaryTimelineView(childID: viewModel.child.id)
     }
 
     // MARK: - Helpers
@@ -210,6 +194,33 @@ struct ChildDetailView: View {
         ]
         let index = abs(viewModel.child.firstName.hashValue) % colors.count
         return colors[index]
+    }
+}
+
+// MARK: - Reactive Timeline
+
+private struct ChildDiaryTimelineView: View {
+    @Query private var entries: [DiaryEntry]
+
+    init(childID: UUID) {
+        _entries = Query(
+            filter: #Predicate<DiaryEntry> { $0.child?.id == childID },
+            sort: \.timestamp,
+            order: .reverse
+        )
+    }
+
+    var body: some View {
+        if entries.isEmpty {
+            EmptyStateView(
+                icon: AppIcons.note,
+                title: "No Entries Today",
+                subtitle: "Tap a quick action above to log the first entry."
+            )
+            .frame(height: 200)
+        } else {
+            DiaryTimelineSection(entries: entries)
+        }
     }
 }
 
