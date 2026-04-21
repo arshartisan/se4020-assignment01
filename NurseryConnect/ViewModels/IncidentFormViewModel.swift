@@ -32,6 +32,11 @@ final class IncidentFormViewModel {
 
     var isSubmitting: Bool { submissionState == .submitting }
 
+    var isValid: Bool {
+        !descriptionText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
+        !immediateActionTaken.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
     // MARK: - Dependencies
     let child: Child
     private let incidentService: IncidentService
