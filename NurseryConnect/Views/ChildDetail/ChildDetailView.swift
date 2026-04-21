@@ -33,12 +33,6 @@ struct ChildDetailView: View {
                 Text(viewModel.child.firstName)
                     .font(.appHeadline)
             }
-            ToolbarItem(placement: .topBarTrailing) {
-                NavigationLink(value: "incidentHistory") {
-                    Label("Incident History", systemImage: AppIcons.incident)
-                        .foregroundColor(.appDanger)
-                }
-            }
         }
         .errorAlert($viewModel.errorMessage)
         .fullScreenCover(isPresented: $viewModel.showIncidentForm) {
