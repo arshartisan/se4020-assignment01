@@ -10,6 +10,21 @@ struct RootView: View {
     @Environment(\.modelContext) private var modelContext
 
     var body: some View {
+        TabView {
+            homeTab
+                .tabItem {
+                    Label("Home", systemImage: "house.fill")
+                }
+
+            incidentsTab
+                .tabItem {
+                    Label("Incidents", systemImage: AppIcons.incident)
+                }
+        }
+        .tint(.appPrimary)
+    }
+
+    private var homeTab: some View {
         NavigationStack {
             ChildRosterView(
                 viewModel: ChildRosterViewModel(
@@ -24,18 +39,19 @@ struct RootView: View {
                     )
                 )
             }
-            .navigationDestination(for: String.self) { route in
-                if route == "incidentHistory" {
-                    IncidentHistoryView(
-                        viewModel: IncidentHistoryViewModel(
-                            incidentService: IncidentService(
-                                context: modelContext,
-                                dispatchService: MockDispatchService()
-                            )
-                        )
+        }
+    }
+
+    private var incidentsTab: some View {
+        NavigationStack {
+            IncidentHistoryView(
+                viewModel: IncidentHistoryViewModel(
+                    incidentService: IncidentService(
+                        context: modelContext,
+                        dispatchService: MockDispatchService()
                     )
-                }
-            }
+                )
+            )
             .navigationDestination(for: IncidentReport.self) { incident in
                 IncidentDetailView(incident: incident)
             }
