@@ -9,6 +9,8 @@ import SwiftData
 struct RootView: View {
     @Environment(\.modelContext) private var modelContext
 
+    @Query private var allIncidents: [IncidentReport]
+
     var body: some View {
         TabView {
             homeTab
@@ -20,6 +22,7 @@ struct RootView: View {
                 .tabItem {
                     Label("Incidents", systemImage: AppIcons.incident)
                 }
+                .badge(allIncidents.count)
         }
         .tint(.appPrimary)
     }
