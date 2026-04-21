@@ -10,8 +10,6 @@ import Observation
 @MainActor
 final class ChildDetailViewModel {
     // MARK: - State
-    var entries: [DiaryEntry] = []
-    var isLoading: Bool = false
     var errorMessage: String?
     var showToast: Bool = false
     var toastMessage: String = ""
@@ -33,15 +31,6 @@ final class ChildDetailViewModel {
     }
 
     // MARK: - Actions
-    func loadEntries() async {
-        isLoading = true
-        defer { isLoading = false }
-        do {
-            entries = try diaryService.entries(for: child)
-        } catch {
-            errorMessage = "Could not load diary entries. Please try again."
-        }
-    }
 
     func presentDiaryForm(type: DiaryEntryType) {
         selectedDiaryType = type
@@ -69,9 +58,8 @@ final class ChildDetailViewModel {
         diaryEntryWasSaved = true
     }
 
-    func onDiaryFormDismissed() async {
+    func onDiaryFormDismissed() {
         if diaryEntryWasSaved {
-            await loadEntries()
             toastMessage = "Entry saved successfully"
             showToast = true
             diaryEntryWasSaved = false
