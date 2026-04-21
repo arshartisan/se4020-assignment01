@@ -141,7 +141,7 @@ struct IncidentFormView: View {
                 .frame(maxWidth: .infinity, minHeight: AppSpacing.minTapTarget)
             }
             .buttonStyle(.primary)
-            .disabled(viewModel.isSubmitting)
+            .disabled(viewModel.isSubmitting || !viewModel.isValid)
             .accessibilityIdentifier("incidentForm.submitButton")
             .listRowInsets(EdgeInsets())
             .listRowBackground(Color.clear)
